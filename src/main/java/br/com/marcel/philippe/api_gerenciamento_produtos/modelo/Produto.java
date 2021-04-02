@@ -6,6 +6,7 @@ public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
+	private long id;
 	private String produtoID;
 	private String nome;
 	private String modelo;
@@ -50,5 +51,13 @@ public class Produto implements Serializable {
 
 	public void setPreco(float preco) {
 		this.preco = preco;
+	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
 	}
 }
