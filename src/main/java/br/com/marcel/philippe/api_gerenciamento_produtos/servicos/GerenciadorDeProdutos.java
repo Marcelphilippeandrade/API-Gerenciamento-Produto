@@ -126,7 +126,7 @@ public class GerenciadorDeProdutos {
 	 * @param entidadeProduto
 	 * @return Produto
 	 */
-	private Produto entityToProduct(Entity entidadeProduto) {
+	private Produto TransformarEntidadeParaProduto(Entity entidadeProduto) {
 		Produto produto = new Produto();
 		produto.setId(entidadeProduto.getKey().getId());
 		produto.setProdutoID((String) entidadeProduto.getProperty("ProdutoID"));
