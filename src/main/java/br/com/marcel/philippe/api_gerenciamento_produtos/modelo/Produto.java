@@ -7,19 +7,10 @@ public class Produto implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private long id;
-	private String produtoID;
 	private String nome;
 	private String modelo;
 	private int codigo;
 	private float preco;
-
-	public String getProdutoID() {
-		return produtoID;
-	}
-
-	public void setProdutoID(String produtoID) {
-		this.produtoID = produtoID;
-	}
 
 	public String getNome() {
 		return nome;
