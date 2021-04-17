@@ -11,6 +11,7 @@ public class Produto implements Serializable {
 	private String modelo;
 	private int codigo;
 	private float preco;
+	private int quantidade;
 
 	public String getNome() {
 		return nome;
@@ -50,5 +51,13 @@ public class Produto implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(int quantidade) {
+		this.quantidade = quantidade;
 	}
 }
