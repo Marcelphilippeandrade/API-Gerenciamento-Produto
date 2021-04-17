@@ -2,6 +2,8 @@ package br.com.marcel.philippe.api_gerenciamento_produtos.servicos;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -34,7 +36,7 @@ public class GerenciadorDeProdutos {
 	 * Método responsável por exibir determinado produto
 	 * 
 	 * @param codigo
-	 * @return Produto
+	 * @return Response
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -45,12 +47,9 @@ public class GerenciadorDeProdutos {
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
 		Query query = new Query("Produtos").setFilter(codigoFilter);
 
-		Entity entidadeProduto = datastore.prepare(query).asSingleEntity();
-
-		Produto produto = null;
-
-		if (entidadeProduto != null) {
-			produto = TransformarEntidadeParaProduto(entidadeProduto);
+		if (ExisteProduto(datastore, query)) {
+			Entity entidadeProduto = EntidadeProduto(datastore, query).get();
+			Produto produto = TransformarEntidadeParaProduto(entidadeProduto);
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
@@ -60,7 +59,7 @@ public class GerenciadorDeProdutos {
 	/**
 	 * Método responsável por exibir a lista de produtos cadastrados
 	 * 
-	 * @return List<Produto>
+	 * @return Response
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
@@ -88,7 +87,7 @@ public class GerenciadorDeProdutos {
 	 * Método responsável por salvar um produto
 	 * 
 	 * @param produto
-	 * @return Produto
+	 * @return Response
 	 */
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
@@ -99,13 +98,11 @@ public class GerenciadorDeProdutos {
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, produto.getCodigo());
 		Query query = new Query("Produtos").setFilter(codigoFilter);
 
-		Entity entidadeProduto = datastore.prepare(query).asSingleEntity();
-		
-		if (entidadeProduto != null) {
+		if (ExisteProduto(datastore, query)) {
 			return Response.status(Status.NOT_FOUND).entity("Produto já cadastrado!").build();
 		} else {
 			Key chaveProduto = KeyFactory.createKey("Produtos", "chaveProduto");
-			entidadeProduto = new Entity("Produtos", chaveProduto);
+			Entity entidadeProduto = new Entity("Produtos", chaveProduto);
 			TransformarProdutoParaEntidade(produto, entidadeProduto);
 			datastore.put(entidadeProduto);
 			produto.setId(entidadeProduto.getKey().getId());
@@ -117,7 +114,7 @@ public class GerenciadorDeProdutos {
 	 * Método responsável por deletar um produto
 	 * 
 	 * @param codigo
-	 * @return
+	 * @return Response
 	 */
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
@@ -128,10 +125,11 @@ public class GerenciadorDeProdutos {
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
 		Query query = new Query("Produtos").setFilter(codigoFilter);
 
-		Entity entidadeProduto = datastore.prepare(query).asSingleEntity();
-		if (entidadeProduto != null) {
-			datastore.delete(entidadeProduto.getKey());
-			Produto produto = TransformarEntidadeParaProduto(entidadeProduto);
+		Optional<Entity> entidadeProduto = EntidadeProduto(datastore, query);
+
+		if (entidadeProduto.isPresent()) {
+			datastore.delete(entidadeProduto.get().getKey());
+			Produto produto = TransformarEntidadeParaProduto(entidadeProduto.get());
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
@@ -143,7 +141,7 @@ public class GerenciadorDeProdutos {
 	 * 
 	 * @param code
 	 * @param produto
-	 * @return Produto
+	 * @return Response
 	 */
 	@PUT
 	@Produces(MediaType.APPLICATION_JSON)
@@ -155,12 +153,12 @@ public class GerenciadorDeProdutos {
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
 
 		Query query = new Query("Produtos").setFilter(codigoFilter);
-		Entity entidadeProduto = datastore.prepare(query).asSingleEntity();
+		Optional<Entity> entidadeProduto = EntidadeProduto(datastore, query);
 
-		if (entidadeProduto != null) {
-			TransformarProdutoParaEntidade(produto, entidadeProduto);
-			datastore.put(entidadeProduto);
-			produto.setId(entidadeProduto.getKey().getId());
+		if (entidadeProduto.isPresent()) {
+			TransformarProdutoParaEntidade(produto, entidadeProduto.get());
+			datastore.put(entidadeProduto.get());
+			produto.setId(entidadeProduto.get().getKey().getId());
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
@@ -179,6 +177,7 @@ public class GerenciadorDeProdutos {
 		entidadeProduto.setProperty("Codigo", produto.getCodigo());
 		entidadeProduto.setProperty("Modelo", produto.getModelo());
 		entidadeProduto.setProperty("Preco", produto.getPreco());
+		entidadeProduto.setProperty("Quantidade", produto.getQuantidade());
 	}
 
 	/**
@@ -195,6 +194,36 @@ public class GerenciadorDeProdutos {
 		produto.setCodigo(Integer.parseInt(entidadeProduto.getProperty("Codigo").toString()));
 		produto.setModelo((String) entidadeProduto.getProperty("Modelo"));
 		produto.setPreco(Float.parseFloat(entidadeProduto.getProperty("Preco").toString()));
+		produto.setQuantidade(Integer.parseInt(entidadeProduto.getProperty("Quantidade").toString()));
 		return produto;
+	}
+
+	/**
+	 * Verifica a existencia do produto na base de dados
+	 * 
+	 * @param datastore
+	 * @param query
+	 * @return Boolean
+	 */
+	private Boolean ExisteProduto(DatastoreService datastore, Query query) {
+		Optional<Entity> optionalEntidadeProduto = Optional.ofNullable(datastore.prepare(query).asSingleEntity());
+		return optionalEntidadeProduto.isPresent();
+	}
+
+	/**
+	 * Retorna um Optional da entidade da base de dados
+	 * 
+	 * @param datastore
+	 * @param query
+	 * @return Optional<Entity>
+	 */
+	private Optional<Entity> EntidadeProduto(DatastoreService datastore, Query query) {
+		Optional<Entity> optionalEntidadeProduto = Optional.ofNullable(datastore.prepare(query).asSingleEntity());
+
+		if (optionalEntidadeProduto.isPresent()) {
+			return Optional.ofNullable(optionalEntidadeProduto).get();
+		} else {
+			return Optional.empty();
+		}
 	}
 }
