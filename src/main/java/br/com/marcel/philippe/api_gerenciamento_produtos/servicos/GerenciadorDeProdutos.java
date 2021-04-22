@@ -156,10 +156,26 @@ public class GerenciadorDeProdutos {
 		Optional<Entity> entidadeProduto = EntidadeProduto(datastore, query);
 
 		if (entidadeProduto.isPresent()) {
-			TransformarProdutoParaEntidade(produto, entidadeProduto.get());
-			datastore.put(entidadeProduto.get());
-			produto.setId(entidadeProduto.get().getKey().getId());
-			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
+
+			DatastoreService datastoreCodigoProduto = DatastoreServiceFactory.getDatastoreService();
+			Filter codigoFilterProduto = new FilterPredicate("Codigo", FilterOperator.EQUAL, produto.getCodigo());
+
+			Query queryBanco = new Query("Produtos").setFilter(codigoFilterProduto);
+			Optional<Entity> entidadeCodigoProduto = EntidadeProduto(datastoreCodigoProduto, queryBanco);
+
+			if (!entidadeCodigoProduto.isPresent()) {
+				return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
+			}
+
+			if (codigo == produto.getCodigo()) {
+				TransformarProdutoParaEntidade(produto, entidadeProduto.get());
+				datastore.put(entidadeProduto.get());
+				produto.setId(entidadeProduto.get().getKey().getId());
+				return Response.ok(produto, MediaType.APPLICATION_JSON).build();
+			} else {
+				return Response.status(Status.NOT_FOUND).entity("Produto já cadastrado, favor inserir um novo codigo!")
+						.build();
+			}
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
 		}
