@@ -1,16 +1,28 @@
 package br.com.marcel.philippe.api_gerenciamento_produtos.modelo;
 
 import java.io.Serializable;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class Produto implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private long id;
+	
+	@NotNull(message = "Nome não pode ser vazio!")
+	@Size(min = 3, message = "Nome deve ter no mínimo 3 letras!")
 	private String nome;
+	
+	@NotNull(message = "Modelo não pode ser vazio!")
 	private String modelo;
+	
+	@NotNull(message = "Código não pode ser vazio!")
 	private int codigo;
+	
+	@NotNull(message = "Preço não pode ser vazio!")
 	private float preco;
+	
 	private int quantidade;
 
 	public String getNome() {
