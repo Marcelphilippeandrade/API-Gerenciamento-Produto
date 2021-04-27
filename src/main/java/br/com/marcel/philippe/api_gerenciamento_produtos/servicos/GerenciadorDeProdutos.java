@@ -3,7 +3,7 @@ package br.com.marcel.philippe.api_gerenciamento_produtos.servicos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
+import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -26,7 +26,6 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
-
 import br.com.marcel.philippe.api_gerenciamento_produtos.modelo.Produto;
 
 @Path("/produtos")
@@ -92,7 +91,7 @@ public class GerenciadorDeProdutos {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	public Response savarProduto(Produto produto) {
+	public Response savarProduto(@Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, produto.getCodigo());
@@ -147,7 +146,7 @@ public class GerenciadorDeProdutos {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
-	public Response alterProduto(@PathParam("codigo") int codigo, Produto produto) {
+	public Response alterProduto(@PathParam("codigo") int codigo, @Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
