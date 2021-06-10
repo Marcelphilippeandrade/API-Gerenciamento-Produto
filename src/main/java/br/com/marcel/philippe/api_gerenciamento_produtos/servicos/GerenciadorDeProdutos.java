@@ -229,7 +229,7 @@ public class GerenciadorDeProdutos {
 	}
 
 	/**
-	 * Verifica a existência do produto na base de dados
+	 * Verifica a existencia do produto na base de dados
 	 * 
 	 * @param datastore
 	 * @param query
