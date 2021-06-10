@@ -3,6 +3,8 @@ package br.com.marcel.philippe.api_gerenciamento_produtos.servicos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.logging.Logger;
+
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -31,6 +33,8 @@ import br.com.marcel.philippe.api_gerenciamento_produtos.modelo.Produto;
 @Path("/produtos")
 public class GerenciadorDeProdutos {
 
+	private static final Logger log = Logger.getLogger("ProductManager");
+
 	/**
 	 * Método responsável por exibir determinado produto
 	 * 
@@ -42,6 +46,8 @@ public class GerenciadorDeProdutos {
 	@Path("/{codigo}")
 	public Response getProduto(@PathParam("codigo") int codigo) {
 
+		log.fine("Pesquisando produto de codigo=[" + codigo + "]");
+
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
 		Query query = new Query("Produtos").setFilter(codigoFilter);
@@ -49,8 +55,10 @@ public class GerenciadorDeProdutos {
 		if (ExisteProduto(datastore, query)) {
 			Entity entidadeProduto = EntidadeProduto(datastore, query).get();
 			Produto produto = TransformarEntidadeParaProduto(entidadeProduto);
+			log.info("Produto de codigo=[" + codigo + "] Pesquisado com sucesso");
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		} else {
+			log.severe("Produto de codigo=[" + codigo + "]. Produto nao encontrado!");
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
 		}
 	}
@@ -63,6 +71,9 @@ public class GerenciadorDeProdutos {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getProdutos() {
+		
+		log.fine("Pesquisando todos os produtos");
+		
 		List<Produto> produtos = new ArrayList<>();
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -120,6 +131,8 @@ public class GerenciadorDeProdutos {
 	@Path("/{codigo}")
 	public Response deletarProduto(@PathParam("codigo") int codigo) {
 
+		log.fine("Deletando o produto de codigo=[" + codigo + "]");
+
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
 		Query query = new Query("Produtos").setFilter(codigoFilter);
@@ -129,8 +142,10 @@ public class GerenciadorDeProdutos {
 		if (entidadeProduto.isPresent()) {
 			datastore.delete(entidadeProduto.get().getKey());
 			Produto produto = TransformarEntidadeParaProduto(entidadeProduto.get());
+			log.info("Produto de codigo=[" + codigo + "] apagado com sucesso");
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		} else {
+			log.severe("Erro ao apagar produto de codigo=[" + codigo + "]. Produto nao encontrado!");
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
 		}
 	}
