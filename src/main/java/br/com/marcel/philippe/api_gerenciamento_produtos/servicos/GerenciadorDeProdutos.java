@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-
+import javax.annotation.security.PermitAll;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -44,6 +44,7 @@ public class GerenciadorDeProdutos {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
+	@PermitAll
 	public Response getProduto(@PathParam("codigo") int codigo) {
 
 		log.fine("Pesquisando produto de codigo=[" + codigo + "]");
@@ -70,6 +71,7 @@ public class GerenciadorDeProdutos {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
+	@PermitAll
 	public Response getProdutos() {
 		
 		log.fine("Pesquisando todos os produtos");
