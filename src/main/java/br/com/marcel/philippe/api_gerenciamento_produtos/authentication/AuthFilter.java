@@ -2,7 +2,11 @@ package br.com.marcel.philippe.api_gerenciamento_produtos.authentication;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
@@ -40,10 +44,11 @@ public class AuthFilter implements ContainerRequestFilter {
 			return;
 		}
 
-		if (loginPassword[0].equals("Admin") && loginPassword[1].equals("Admin")) {
-			return;
-		} else {
+		RolesAllowed rolesAllowed = method.getAnnotation(RolesAllowed.class);
+		Set<String> rolesSet = new HashSet<String>(Arrays.asList(rolesAllowed.value()));
+		if (checkCredentialsAndRoles(loginPassword[0], loginPassword[1], rolesSet) == false) {
 			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).entity(ACCESS_UNAUTHORIZED).build());
+			return;
 		}
 	}
 
@@ -55,5 +60,23 @@ public class AuthFilter implements ContainerRequestFilter {
 			return null;
 		}
 		return new String(decodedBytes).split(":", 2);
+	}
+
+	private boolean checkCredentialsAndRoles(String username, String password, Set<String> roles) {
+		boolean isUserAllowed = false;
+
+		if (username.equals("Admin") && password.equals("Admin")) {
+			if (roles.contains("ADMIN")) {
+				isUserAllowed = true;
+			}
+		}
+		if (isUserAllowed == false) {
+			if (username.equals("User") && password.equals("User")) {
+				if (roles.contains("USER")) {
+					isUserAllowed = true;
+				}
+			}
+		}
+		return isUserAllowed;
 	}
 }
