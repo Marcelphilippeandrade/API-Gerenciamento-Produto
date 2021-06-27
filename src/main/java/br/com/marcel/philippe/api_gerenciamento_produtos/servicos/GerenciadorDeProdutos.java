@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -104,6 +105,7 @@ public class GerenciadorDeProdutos {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
+	@RolesAllowed("USER")
 	public Response savarProduto(@Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -131,6 +133,7 @@ public class GerenciadorDeProdutos {
 	@DELETE
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
+	@RolesAllowed("ADMIN")
 	public Response deletarProduto(@PathParam("codigo") int codigo) {
 
 		log.fine("Deletando o produto de codigo=[" + codigo + "]");
@@ -163,6 +166,7 @@ public class GerenciadorDeProdutos {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
+	@RolesAllowed("USER")
 	public Response alterProduto(@PathParam("codigo") int codigo, @Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
