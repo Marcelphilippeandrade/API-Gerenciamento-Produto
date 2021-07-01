@@ -45,7 +45,7 @@ public class GerenciadorDeProdutos {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
-	@PermitAll
+	@RolesAllowed({"ADMIN","USER"})
 	public Response getProduto(@PathParam("codigo") int codigo) {
 
 		log.fine("Pesquisando produto de codigo=[" + codigo + "]");
@@ -72,7 +72,7 @@ public class GerenciadorDeProdutos {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@PermitAll
+	@RolesAllowed({"ADMIN","USER"})
 	public Response getProdutos() {
 		
 		log.fine("Pesquisando todos os produtos");
