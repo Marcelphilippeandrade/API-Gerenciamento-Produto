@@ -105,7 +105,7 @@ public class GerenciadorDeProdutos {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed("USER")
+	@RolesAllowed({"ADMIN","USER"})
 	public Response savarProduto(@Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
@@ -166,7 +166,7 @@ public class GerenciadorDeProdutos {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
-	@RolesAllowed("USER")
+	@RolesAllowed({"ADMIN","USER"})
 	public Response alterProduto(@PathParam("codigo") int codigo, @Valid Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
