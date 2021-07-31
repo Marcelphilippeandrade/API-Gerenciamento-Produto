@@ -1,0 +1,1433 @@
+{
+	"info": {
+		"_postman_id": "e0ffbe73-586b-4680-ae35-252006e4f373",
+		"name": "API - Gerenciador De Produtos",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Endpoint Local",
+			"item": [
+				{
+					"name": "Endpoint Produto",
+					"item": [
+						{
+							"name": "Cadastro Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"nome\": \"Celular Samsung\",\r\n\"modelo\": \"S10\",\r\n\"codigo\": 1,\r\n\"preco\": 4000.00,\r\n\"quantidade\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/produtos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/produtos",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produto",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "text"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/produtos/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "User",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "User",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": 5629499534213120,\r\n    \"nome\": \"Celular Samsung\",\r\n    \"modelo\": \"S10\",\r\n    \"codigo\": 1,\r\n    \"preco\": 3500.0,\r\n    \"quantidade\": 10\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/produtos/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/produtos/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Endpoint Usuário",
+					"item": [
+						{
+							"name": "Cadastro Usuários",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"pabloraa@hotmail.com\",\r\n    \"senha\": \"123456\",\r\n    \"perfil\": \"USER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuários",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									],
+									"query": [
+										{
+											"key": "email",
+											"value": "marcelpaa@hotmail.com",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"6192449487634432\",\r\n    \"email\": \"marcelpaa@hotmail.com\",\r\n    \"senha\": \"123456\",\r\n    \"perfil\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios/pabloraa@hotmail.com",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"pabloraa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera gcmRegId",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "pabloraa@hotmail.com",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/usuarios/update_gcm_reg_id/1",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"usuarios",
+										"update_gcm_reg_id",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Endpoint Google Cloud",
+			"item": [
+				{
+					"name": "Endpoint Produto",
+					"item": [
+						{
+							"name": "Cadastro Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"nome\": \"Micro-ondas\",\r\n\"modelo\": \"Philco PMO26\",\r\n\"codigo\": 4,\r\n\"preco\": 549.00,\r\n\"quantidade\": 25\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos/1",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Micro-ondas\",\r\n    \"modelo\": \"Philco PMO26\",\r\n    \"codigo\": 4,\r\n    \"preco\": 600.00,\r\n    \"quantidade\": 25\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos/4",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos/4",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Endpoint Usuário",
+					"item": [
+						{
+							"name": "Cadastro Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"pabloraa@hotmail.com\",\r\n    \"senha\": \"123456\",\r\n    \"perfil\": \"USER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuários",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"5702893864747008\",\r\n    \"email\": \"marcelpaa@hotmail.com\",\r\n    \"senha\": \"123456789\",\r\n    \"perfil\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/fulano@hotmail.com",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"fulano@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera gcmRegId",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "pabloraa@hotmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/update_gcm_reg_id/1",
+									"protocol": "https",
+									"host": [
+										"servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"update_gcm_reg_id",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Endpint Google Cloud Versão Expecífica",
+			"item": [
+				{
+					"name": "Endpoint Produto",
+					"item": [
+						{
+							"name": "Cadastro Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n\"nome\": \"Micro-ondas\",\r\n\"modelo\": \"Philco PMO26\",\r\n\"codigo\": 4,\r\n\"preco\": 549.00,\r\n\"quantidade\": 25\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://1-4-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos",
+									"protocol": "https",
+									"host": [
+										"1-4-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://1-4-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos/1",
+									"protocol": "https",
+									"host": [
+										"1-4-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Produtos",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://1-4-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos",
+									"protocol": "https",
+									"host": [
+										"1-4-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"nome\": \"Micro-ondas\",\r\n    \"modelo\": \"Philco PMO26\",\r\n    \"codigo\": 4,\r\n    \"preco\": 600.00,\r\n    \"quantidade\": 25\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://1-4-dot-servico-gerenciamento-produtos.rj.r.appspot.com/produtos/4",
+									"protocol": "https",
+									"host": [
+										"1-4-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"produtos",
+										"4"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Deleta Produto",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "Admin",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://1-4-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/produtos",
+									"protocol": "https",
+									"host": [
+										"1-4-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"produtos"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Endpoint Usuário",
+					"item": [
+						{
+							"name": "Cadastra Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"josi@hotmail.com\",\r\n    \"senha\": \"123456\",\r\n    \"perfil\": \"USER\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://1-5-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios",
+									"protocol": "https",
+									"host": [
+										"1-5-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuários",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://1-5-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios",
+									"protocol": "https",
+									"host": [
+										"1-5-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Pesquisa Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://1-5-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "https",
+									"host": [
+										"1-5-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera Usuário",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "Admin#7",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "admin@marcelphilippe.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"5702893864747008\",\r\n    \"email\": \"marcelpaa@hotmail.com\",\r\n    \"senha\": \"123456\",\r\n    \"perfil\": \"ADMIN\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://1-5-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/marcelpaa@hotmail.com",
+									"protocol": "https",
+									"host": [
+										"1-5-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"marcelpaa@hotmail.com"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Altera gcmRegId",
+							"request": {
+								"auth": {
+									"type": "basic",
+									"basic": [
+										{
+											"key": "password",
+											"value": "123456",
+											"type": "string"
+										},
+										{
+											"key": "username",
+											"value": "josi@hotmail.com",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "https://1-5-dot-servico-gerenciamento-produtos.rj.r.appspot.com/api/usuarios/update_gcm_reg_id/2",
+									"protocol": "https",
+									"host": [
+										"1-5-dot-servico-gerenciamento-produtos",
+										"rj",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"api",
+										"usuarios",
+										"update_gcm_reg_id",
+										"2"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

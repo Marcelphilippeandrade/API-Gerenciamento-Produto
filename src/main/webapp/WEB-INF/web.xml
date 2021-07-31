@@ -7,8 +7,9 @@
 
 	<servlet>
 		<servlet-name>GerenciamentoProdutosServices</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
-		
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer
+		</servlet-class>
+
 		<init-param>
 			<param-name>
 				jersey.config.server.provider.packages
@@ -17,27 +18,33 @@
 				br.com.marcel.philippe.api_gerenciamento_produtos.servicos
 			</param-value>
 		</init-param>
-		
+
 		<init-param>
-			<param-name>org.glassfish.jersey.api.json.POJOMappingFeature</param-name>
+			<param-name>org.glassfish.jersey.api.json.POJOMappingFeature
+			</param-name>
 			<param-value>true</param-value>
 		</init-param>
 
 		<init-param>
 			<param-name>jersey.config.server.provider.classnames</param-name>
-			<param-value>br.com.marcel.philippe.api_gerenciamento_produtos.authentication.AuthFilter;org.glassfish.jersey.filter.LoggingFilter</param-value>
+			<param-value>br.com.marcel.philippe.api_gerenciamento_produtos.authentication.AuthFilter;org.glassfish.jersey.filter.LoggingFilter
+			</param-value>
 		</init-param>
-		
+
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
 	<servlet-mapping>
 		<servlet-name>GerenciamentoProdutosServices</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
-	
+
+	<listener>
+		<listener-class>br.com.marcel.philippe.api_gerenciamento_produtos.util.ServletInicializaContextoApp</listener-class>
+	</listener>
+
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
-	
+
 </web-app>
