@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.logging.Logger;
-import javax.annotation.security.PermitAll;
 import javax.annotation.security.RolesAllowed;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,12 +29,13 @@ import com.google.appengine.api.datastore.Query.Filter;
 import com.google.appengine.api.datastore.Query.FilterOperator;
 import com.google.appengine.api.datastore.Query.FilterPredicate;
 import com.google.appengine.api.datastore.Query.SortDirection;
+
 import br.com.marcel.philippe.api_gerenciamento_produtos.modelo.Produto;
 
 @Path("/produtos")
 public class GerenciadorDeProdutos {
 
-	private static final Logger log = Logger.getLogger("ProductManager");
+	private static final Logger log = Logger.getLogger("GerenciadorDeProdutos");
 
 	/**
 	 * Método responsável por exibir determinado produto
@@ -45,7 +46,7 @@ public class GerenciadorDeProdutos {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
-	@RolesAllowed({"ADMIN","USER"})
+	@RolesAllowed({ "ADMIN", "USER" })
 	public Response getProduto(@PathParam("codigo") int codigo) {
 
 		log.fine("Pesquisando produto de codigo=[" + codigo + "]");
@@ -72,11 +73,11 @@ public class GerenciadorDeProdutos {
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed({"ADMIN","USER"})
+	@RolesAllowed({ "ADMIN", "USER" })
 	public Response getProdutos() {
-		
+
 		log.fine("Pesquisando todos os produtos");
-		
+
 		List<Produto> produtos = new ArrayList<>();
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 
@@ -105,14 +106,15 @@ public class GerenciadorDeProdutos {
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
-	@RolesAllowed({"ADMIN","USER"})
-	public Response savarProduto(@Valid Produto produto) {
+	@RolesAllowed({ "ADMIN", "USER" })
+	public Response savarProduto(@Valid @NotNull Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, produto.getCodigo());
 		Query query = new Query("Produtos").setFilter(codigoFilter);
 
 		if (ExisteProduto(datastore, query)) {
+			log.severe("Produto de codigo=[" + produto.getCodigo() + "] já cadastrado!");
 			return Response.status(Status.NOT_FOUND).entity("Produto já cadastrado!").build();
 		} else {
 			Key chaveProduto = KeyFactory.createKey("Produtos", "chaveProduto");
@@ -120,6 +122,7 @@ public class GerenciadorDeProdutos {
 			TransformarProdutoParaEntidade(produto, entidadeProduto);
 			datastore.put(entidadeProduto);
 			produto.setId(entidadeProduto.getKey().getId());
+			log.info("Salvando o produto de codigo=[" + produto.getCodigo() + "]");
 			return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 		}
 	}
@@ -166,8 +169,8 @@ public class GerenciadorDeProdutos {
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("/{codigo}")
-	@RolesAllowed({"ADMIN","USER"})
-	public Response alterProduto(@PathParam("codigo") int codigo, @Valid Produto produto) {
+	@RolesAllowed({ "ADMIN", "USER" })
+	public Response alterProduto(@PathParam("codigo") int codigo, @Valid @NotNull Produto produto) {
 
 		DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
 		Filter codigoFilter = new FilterPredicate("Codigo", FilterOperator.EQUAL, codigo);
@@ -193,8 +196,7 @@ public class GerenciadorDeProdutos {
 				produto.setId(entidadeProduto.get().getKey().getId());
 				return Response.ok(produto, MediaType.APPLICATION_JSON).build();
 			} else {
-				return Response.status(Status.NOT_FOUND).entity("Produto já cadastrado, favor inserir um novo codigo!")
-						.build();
+				return Response.status(Status.NOT_FOUND).entity("Produto já cadastrado, favor inserir um novo codigo!").build();
 			}
 		} else {
 			return Response.status(Status.NOT_FOUND).entity("Produto não encontrado!").build();
